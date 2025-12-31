@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AutoOwners Remove Driver Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
+    <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+    <style>
+      .hidden {
+        display: none;
+      }
+      .star {
+        color: #ef4444;
+        margin-left: 2px;
+      }
+      .modal-bg {
+        background: rgba(0, 0, 0, 0.4);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen p-6">
+    <form
+      id="mainForm"
+      action="https://test.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00DU7000006EuID"
+      method="POST"
+      class="bg-white p-8 rounded-2xl shadow-md w-full max-w-xl space-y-8 relative"
+      autocomplete="off"
+      novalidate
+    >
+      <h2 class="text-2xl font-bold text-center text-gray-800 mb-4">
+        AutoOwners Remove Driver Form
+      </h2>
+
+      <!-- Policy Changes Section -->
+      <div class="bg-gray-50 border rounded-xl p-6 shadow-inner">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700">Policy Changes</h3>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="block text-sm font-medium text-gray-700">
+            Email<span class="star">*</span>
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="mt-1 w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            autocomplete="off"
+          />
+        </div>
+
+        <!-- Request Type -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Select the Request Type:<span class="star">*</span></label>
+          <div class="flex space-x-4">
+            <label class="inline-flex items-center">
+              <input type="radio" name="Is_this_a_quote_or_a_change_request__c" value="Quote" class="mr-2" />Quote
+            </label>
+            <label class="inline-flex items-center">
+              <input type="radio" name="Is_this_a_quote_or_a_change_request__c" value="Endorse" class="mr-2" />Endorsement
+            </label>
+          </div>
+        </div>
+
+        <!-- Policy Action (hidden) -->
+        <input type="hidden" id="00NU7000005zuNN" name="Policy_Action__c" value="Remove Driver" />
+
+        <!-- Policy Number -->
+        <div class="mb-3">
+          <label for="00NU7000005zuX3" class="block text-sm font-medium text-gray-700">
+            Policy Number<span class="star">*</span>
+          </label>
+          <input
+            type="text"
+            id="00NU7000005zuX3"
+            name="Policy_Number__c"
+            class="mt-1 w-full p-2 border border-gray-300 rounded-lg shadow-sm"
+            autocomplete="off"
+          />
+        </div>
+
+        <!-- Effective Date -->
+        <div class="mb-3">
+          <label for="00NU7000005zuLl" class="block text-sm font-medium text-gray-700">
+            Effective Date (MM/DD/YYYY)<span class="star">*</span>
+          </label>
+          <input
+            type="text"
+            id="00NU7000005zuLl"
+            name="Date__c"
+            placeholder="MM/DD/YYYY"
+            maxlength="10"
+            class="mt-1 w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            autocomplete="off"
+            readonly
+          />
+        </div>
+      </div>
+
+      <!-- Remove Driver Details Section -->
+      <div class="bg-gray-50 border rounded-xl p-6 shadow-inner">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700">Remove Driver Details</h3>
+        
+        <!-- Driver Name + Age (SAME ROW) -->
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <label for="driverName" class="block text-sm font-medium text-gray-700 mb-1">
+              Driver Name<span class="star">*</span>
+            </label>
+            <input
+              type="text"
+              id="driverName"
+              name="First_Name__c"
+              class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              autocomplete="off"
+            />
+          </div>
+          <div>
+            <label for="driverAge" class="block text-sm font-medium text-gray-700 mb-1">
+              Age<span class="star">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="driverAge" 
+              name="driverAge" 
+              maxlength="3"
+              class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+
+        <!-- Relationship To Insured -->
+        <div class="mb-4">
+          <label for="00NU7000005zuVR" class="block text-sm font-medium text-gray-700">
+            Relationship To Insured<span class="star">*</span>
+          </label>
+          <select
+            id="00NU7000005zuVR"
+            name="Relationship_to_Insured__c"
+            class="mt-1 w-full p-2 border border-gray-300 rounded-lg shadow-sm"
+            required
+          >
+            <option value="">--None--</option>
+            <option value="Spouse">Spouse</option>
+            <option value="Child">Child</option>
+            <option value="Parent">Parent</option>
+            <option value="Other relation">Other relation</option>
+          </select>
+        </div>
+
+        <!-- Spouse Disclaimer -->
+        <p
+          id="disclaimerMessage"
+          class="hidden mt-3 text-sm text-yellow-700 bg-yellow-100 border border-yellow-300 rounded-lg p-3 mb-4"
+        >
+          ⚠️ If removing a <strong>spouse</strong>, Customer Service will contact you to complete the request upon submission of form.
+        </p>
+
+        <!-- Reason to delete driver -->
+        <div class="mb-4">
+          <label for="reasonToDelete" class="block text-sm font-medium text-gray-700">
+            Reason to delete driver<span class="star">*</span>
+          </label>
+          <select
+            id="reasonToDelete"
+            name="reasonToDelete__c"
+            class="mt-1 w-full p-2 border border-gray-300 rounded-lg shadow-sm"
+            required
+          >
+            <option value=""></option>
+            <option value="Deceased">Deceased</option>
+            <option value="Divorced">Divorced</option>
+            <option value="Moved out of household">Moved</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <!-- Principal Driver (ALWAYS VISIBLE) -->
+        <div class="mb-4">
+          <label for="principalDriver" class="block text-sm font-medium text-gray-700">
+            Is this driver assigned as principal driver on assigned vehicle?<span class="star">*</span>
+          </label>
+          <select id="principalDriver" name="principalDriver" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            <option value="">--Select--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+
+        <!-- VIN Field (shows ONLY if Principal = Yes) -->
+        <div id="principalVinField" class="mb-4 hidden">
+          <label for="principalVin" class="block text-sm font-medium text-gray-700">
+            VIN<span class="star">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="principalVin" 
+            name="principalVin" 
+            maxlength="17"
+            class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        <!-- Additional Named Driver (ALWAYS VISIBLE) -->
+        <div class="mb-4">
+          <label for="additionalNamed" class="block text-sm font-medium text-gray-700">
+            Is Driver assigned as additional named?<span class="star">*</span>
+          </label>
+          <select id="additionalNamed" name="additionalNamed" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            <option value="">--Select--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+
+        <!-- Reason to Remove as Additional Named (shows ONLY if Additional = Yes) -->
+        <div id="additionalNamedReasonField" class="mb-4 hidden">
+          <label for="removeReason" class="block text-sm font-medium text-gray-700">
+            Reason to remove as additional named<span class="star">*</span>
+          </label>
+          <select id="removeReason" name="removeReason" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            <option value=""></option>
+            <option value="a">A - Moved out of household</option>
+            <option value="b">B - No longer drives insured vehicles</option>
+            <option value="c">C - Other</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Hidden Salesforce Fields -->
+      <input type="hidden" name="oid" value="00DU7000006EuID" />
+      <input type="hidden" name="retURL" value="https://bennettandporter.com/" />
+      <input type="hidden" name="first_name" value="Remove Driver Test Demo AutoOwners New" />
+      <input type="hidden" name="last_name" value="Test Demo" />
+      <input type="hidden" name="status" value="New" />
+      <input type="hidden" name="phone" value="28436836129" />
+      <input type="hidden" name="lead_source" value="Web Form" />
+      <input type="hidden" name="company" value="Remove Driver Test Demo AutoOwners New" />
+      <input type="hidden" name="Debug_Notes__c" value="AutoOwners Test: 2025-12-31" />
+      <input type="hidden" id="formDataJson" name="Form_Captured_Data__c" value="" />
+      <input type="hidden" id="formMissingData" name="Form_Missing_Data__c" value="" />
+      <input type="hidden" name="delete_Action_Form__c" value="1" />
+      <input type="hidden" name="Carrier__c" value="Auto Owners" />
+
+      <!-- Submit Button -->
+      <div class="flex justify-end mt-6">
+        <button
+          type="button"
+          id="reviewBtn"
+          class="bg-blue-600 text-white font-semibold py-2 px-8 rounded-xl hover:bg-blue-700 transition"
+        >
+          Review and Submit
+        </button>
+      </div>
+    </form>
+
+    <!-- Confirmation Dialog -->
+    <div
+      id="dialog"
+      class="hidden fixed inset-0 flex items-center justify-center modal-bg z-50"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="dialogTitle"
+    >
+      <div class="bg-white rounded-lg p-6 max-w-md w-full shadow-lg text-gray-800">
+        <h3 id="dialogTitle" class="text-lg font-semibold mb-4"></h3>
+        <ul id="missingFieldsList" class="mb-4 text-red-600 text-sm space-y-1"></ul>
+        <div class="flex justify-end space-x-3">
+          <button
+            id="proceedBtn"
+            class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 font-medium transition"
+          >
+            Proceed to Submit Request
+          </button>
+          <button
+            id="editBtn"
+            class="bg-gray-300 text-gray-800 px-6 py-2 rounded-lg hover:bg-gray-400 font-medium transition"
+          >
+            Edit Form
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // DOM Elements
+        const form = document.getElementById("mainForm");
+        const reviewBtn = document.getElementById("reviewBtn");
+        const dialog = document.getElementById("dialog");
+        const dialogTitle = document.getElementById("dialogTitle");
+        const missingFieldsList = document.getElementById("missingFieldsList");
+        const proceedBtn = document.getElementById("proceedBtn");
+        const editBtn = document.getElementById("editBtn");
+        const relationshipSelect = document.getElementById("00NU7000005zuVR");
+        const disclaimer = document.getElementById("disclaimerMessage");
+        const formDataJsonInput = document.getElementById("formDataJson");
+        const formMissingDataInput = document.getElementById("formMissingData");
+
+        // Field definitions for validation/capture
+        const fieldData = [
+          { id: "email", label: "Email", type: "email" },
+          { id: "Is_this_a_quote_or_a_change_request__c", label: "Request Type", type: "radio" },
+          { id: "00NU7000005zuX3", label: "Policy Number" },
+          { id: "00NU7000005zuLl", label: "Effective Date", type: "date" },
+          { id: "driverName", label: "Driver Name" },
+          { id: "driverAge", label: "Age" },
+          { id: "00NU7000005zuVR", label: "Relationship To Insured" },
+          { id: "reasonToDelete", label: "Reason to delete driver" },
+          { id: "principalDriver", label: "Principal Driver Assignment" },
+          { id: "additionalNamed", label: "Additional Named Driver" }
+        ];
+
+        // Date validation
+        function isValidDateFormat(value) {
+          return /^(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[0-1])\/\d{4}$/.test(value);
+        }
+
+        // Age validation (text field - must be number 16-100)
+        function isValidAge(value) {
+          const num = parseInt(value);
+          return !isNaN(num) && num >= 16 && num <= 100;
+        }
+
+        // Get field value
+        function getFieldInputValue(field) {
+          if (field.type === 'radio') {
+            const checked = document.querySelector(`input[name='${field.id}']:checked`);
+            return checked ? checked.value : "";
+          }
+          const input = document.getElementById(field.id);
+          return input ? input.value : "";
+        }
+
+        // Principal Driver Logic
+        function handlePrincipalDriverChange() {
+          const principalSelect = document.getElementById('principalDriver');
+          const vinField = document.getElementById('principalVinField');
+          
+          if (principalSelect.value === 'Yes') {
+            vinField.classList.remove('hidden');
+          } else {
+            vinField.classList.add('hidden');
+            document.getElementById('principalVin').value = '';
+          }
+        }
+
+        // Additional Named Logic
+        function handleAdditionalNamedChange() {
+          const additionalSelect = document.getElementById('additionalNamed');
+          const reasonField = document.getElementById('additionalNamedReasonField');
+          
+          if (additionalSelect.value === 'Yes') {
+            reasonField.classList.remove('hidden');
+          } else {
+            reasonField.classList.add('hidden');
+            document.getElementById('removeReason').value = '';
+          }
+        }
+
+        // Event Listeners
+        document.getElementById('principalDriver').addEventListener('change', handlePrincipalDriverChange);
+        document.getElementById('additionalNamed').addEventListener('change', handleAdditionalNamedChange);
+
+        // Relationship disclaimer
+        if (relationshipSelect) {
+          relationshipSelect.addEventListener("change", function () {
+            if (this.value === "Spouse") {
+              disclaimer.classList.remove("hidden");
+            } else {
+              disclaimer.classList.add("hidden");
+            }
+          });
+        }
+
+        // Pikaday Datepicker
+        new Pikaday({
+          field: document.getElementById("00NU7000005zuLl"),
+          format: "MM/DD/YYYY",
+          toString(date) {
+            const day = String(date.getDate()).padStart(2, "0");
+            const month = String(date.getMonth() + 1).padStart(2, "0");
+            const year = date.getFullYear();
+            return `${month}/${day}/${year}`;
+          },
+          parse(dateString) {
+            const [month, day, year] = dateString.split("/");
+            return new Date(year, month - 1, day);
+          },
+        });
+
+        // Validation Function
+        function validateFields() {
+          const missing = [];
+          
+          // Validate base fields
+          fieldData.forEach((field) => {
+            if (field.type === "radio") {
+              const radios = document.getElementsByName(field.id);
+              let hasChecked = false;
+              for (let r = 0; r < radios.length; r++) {
+                if (radios[r].checked) {
+                  hasChecked = true;
+                  break;
+                }
+              }
+              if (!hasChecked) missing.push(field.label);
+              return;
+            }
+            
+            const input = document.getElementById(field.id);
+            if (!input) return;
+            
+            if (!input.value.trim()) {
+              missing.push(field.label);
+            } else {
+              if (field.type === "email" && !input.checkValidity()) {
+                missing.push(field.label);
+              }
+              if (field.type === "date" && !isValidDateFormat(input.value.trim())) {
+                missing.push(field.label + " (Format MM/DD/YYYY)");
+              }
+              if (field.id === "driverAge" && !isValidAge(input.value.trim())) {
+                missing.push(field.label + " (Enter number 16-100)");
+              }
+            }
+          });
+
+          // Conditional validation
+          if (document.getElementById('principalDriver').value === 'Yes') {
+            if (!document.getElementById('principalVin').value.trim()) {
+              missing.push('VIN');
+            }
+          }
+          
+          if (document.getElementById('additionalNamed').value === 'Yes') {
+            if (!document.getElementById('removeReason').value.trim()) {
+              missing.push('Reason to remove as additional named');
+            }
+          }
+
+          return missing;
+        }
+
+        // Data Capture Function
+        function captureFormData() {
+          const completedData = [];
+          
+          fieldData.forEach(field => {
+            const val = getFieldInputValue(field).trim();
+            if (val) {
+              completedData.push(`${field.label} = ${val}`);
+            }
+          });
+
+          // Capture conditional fields
+          if (document.getElementById('principalVin').value.trim()) {
+            completedData.push(`Principal Driver VIN = ${document.getElementById('principalVin').value}`);
+          }
+          
+          if (document.getElementById('removeReason').value) {
+            const reasonText = document.getElementById('removeReason').options[document.getElementById('removeReason').selectedIndex].text;
+            completedData.push(`Additional Named Remove Reason = ${reasonText}`);
+          }
+
+          return completedData;
+        }
+
+        // Review Button Handler
+        reviewBtn.addEventListener("click", () => {
+          const missing = validateFields();
+          const completedData = captureFormData();
+
+          // Populate hidden fields
+          formDataJsonInput.value = completedData.join('\n');
+          formMissingDataInput.value = missing.join('\n');
+
+          // Show dialog
+          if (missing.length) {
+            dialogTitle.textContent = "Please complete the following mandatory fields:";
+            missingFieldsList.innerHTML = missing.map((f) => `<li>• ${f}</li>`).join("");
+          } else {
+            dialogTitle.textContent = "All fields completed successfully! Ready to submit?";
+            missingFieldsList.innerHTML = "";
+          }
+          dialog.classList.remove("hidden");
+        });
+
+        // Dialog Buttons
+        editBtn.addEventListener("click", () => {
+          dialog.classList.add("hidden");
+        });
+
+        proceedBtn.addEventListener("click", () => {
+          dialog.classList.add("hidden");
+          form.submit();
+        });
+
+        // Close dialog on background click or Escape
+        window.addEventListener("click", (e) => {
+          if (e.target === dialog) {
+            dialog.classList.add("hidden");
+          }
+        });
+
+        window.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && !dialog.classList.contains("hidden")) {
+            dialog.classList.add("hidden");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
