@@ -177,10 +177,10 @@
           </select>
         </div>
 
-        <!-- Principal Driver (ALWAYS VISIBLE) -->
+        <!-- Principal Driver (ALWAYS VISIBLE) - UPDATED LABEL -->
         <div class="mb-4">
           <label for="principalDriver" class="block text-sm font-medium text-gray-700">
-            Is this driver assigned as principal driver on assigned vehicle?<span class="star">*</span>
+            Is this driver assigned as the principal driver for any vehicle?<span class="star">*</span>
           </label>
           <select id="principalDriver" name="principalDriver" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
             <option value="">--Select--</option>
@@ -189,10 +189,10 @@
           </select>
         </div>
 
-        <!-- VIN Field (shows ONLY if Principal = Yes) -->
+        <!-- VIN Field (shows ONLY if Principal = Yes) - UPDATED LABEL -->
         <div id="principalVinField" class="mb-4 hidden">
           <label for="principalVin" class="block text-sm font-medium text-gray-700">
-            VIN<span class="star">*</span>
+            What is the VIN of the vehicle for assigning the oldest driver?<span class="star">*</span>
           </label>
           <input 
             type="text" 
@@ -309,7 +309,7 @@
           { id: "driverAge", label: "Age" },
           { id: "00NU7000005zuVR", label: "Relationship To Insured" },
           { id: "reasonToDelete", label: "Reason to delete driver" },
-          { id: "principalDriver", label: "Principal Driver Assignment" },
+          { id: "principalDriver", label: "Principal driver for any vehicle" },
           { id: "additionalNamed", label: "Additional Named Driver" }
         ];
 
@@ -431,7 +431,7 @@
           // Conditional validation
           if (document.getElementById('principalDriver').value === 'Yes') {
             if (!document.getElementById('principalVin').value.trim()) {
-              missing.push('VIN');
+              missing.push('VIN of the vehicle for assigning the oldest driver');
             }
           }
           
@@ -457,7 +457,7 @@
 
           // Capture conditional fields
           if (document.getElementById('principalVin').value.trim()) {
-            completedData.push(`Principal Driver VIN = ${document.getElementById('principalVin').value}`);
+            completedData.push(`VIN of vehicle for oldest driver = ${document.getElementById('principalVin').value}`);
           }
           
           if (document.getElementById('removeReason').value) {
