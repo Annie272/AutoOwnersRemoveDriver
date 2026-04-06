@@ -271,14 +271,14 @@ function getSelectedRadioValue(name) {
 }
 
 const allFormData = {
-  Email: document.getElementById("email")?.value || "",
-Is_this_a_quote_or_a_change_request: getSelectedRadioValue("Is_this_a_quote_or_a_change_request__c"), 
+  email: document.getElementById("email")?.value || "",
+  Is_this_a_quote_or_a_change_request: getSelectedRadioValue("Is_this_a_quote_or_a_change_request__c"), 
   Policy_Number: document.getElementById("00NU7000005zuX3")?.value || "",
-  Effective_Date: formatDateToISO(document.getElementById("00NU7000005zuLl")?.value),
-  Driver_Name: document.getElementById("driverName")?.value || "",
+  Date: formatDateToISO(document.getElementById("00NU7000005zuLl")?.value),
+  First_Name: document.getElementById("driverName")?.value || "",
   Age: document.getElementById("driverAge")?.value || "",
   Relationship_to_Insured: document.getElementById("00NU7000005zuVR")?.value || "",
-  Reason_to_delete_driver: document.getElementById("reasonToDelete")?.value || "",
+  reasonToDelete: document.getElementById("reasonToDelete")?.value || "",
   Other_Reason: document.getElementById("otherReason")?.value || "",
   Is_Driver_assigned_as_additional_named: document.getElementById("additionalNamed")?.value || "",
   Reason_to_remove_as_additional_named: document.getElementById("removeReason")?.value || "",
@@ -286,7 +286,6 @@ Is_this_a_quote_or_a_change_request: getSelectedRadioValue("Is_this_a_quote_or_a
   Carrier: "Auto Owners",
   Policy_Action: document.getElementById("00NU7000005zuNN")?.value || ""
 };
-document.getElementById("allFormData").value = JSON.stringify(allFormData);
 
           const dialog = document.getElementById("dialog");
           const title = document.getElementById("dialogTitle");
