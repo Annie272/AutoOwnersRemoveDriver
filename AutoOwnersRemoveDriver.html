@@ -286,6 +286,8 @@ const allFormData = {
   Carrier: "Auto Owners",
   Policy_Action: document.getElementById("00NU7000005zuNN")?.value || ""
 };
+          document.getElementById("allFormData").value = JSON.stringify(allFormData);
+
 
           const dialog = document.getElementById("dialog");
           const title = document.getElementById("dialogTitle");
