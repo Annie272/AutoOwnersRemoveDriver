@@ -271,10 +271,10 @@ function getSelectedRadioValue(name) {
 }
 
 const allFormData = {
-  email: document.getElementById("email")?.value || "",
+  Email: document.getElementById("email")?.value || "",
   Is_this_a_quote_or_a_change_request: getSelectedRadioValue("Is_this_a_quote_or_a_change_request__c"), 
   Policy_Number: document.getElementById("00NU7000005zuX3")?.value || "",
-  Date: formatDateToISO(document.getElementById("00NU7000005zuLl")?.value),
+  Effective_Date: formatDateToISO(document.getElementById("00NU7000005zuLl")?.value),
   First_Name: document.getElementById("driverName")?.value || "",
   Age: document.getElementById("driverAge")?.value || "",
   Relationship_to_Insured: document.getElementById("00NU7000005zuVR")?.value || "",
